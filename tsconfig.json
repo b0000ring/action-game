@@ -5,6 +5,7 @@
     "module": "es6",
     "sourceMap": true,
     "target": "es5",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "strictNullChecks": true
   }
 }
