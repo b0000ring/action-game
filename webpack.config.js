@@ -14,7 +14,13 @@ module.exports = {
   },
   devtool: "source-map",
   resolve: {
-    extensions: ['.ts', '.js'],
+    alias: {
+      "@common": path.resolve(__dirname, "src/common"),
+      "@engine": path.resolve(__dirname, "src/engine"),
+      "@game": path.resolve(__dirname, "src/game"),
+      "@app": path.resolve(__dirname, "src/app"),
+    },
+    extensions: ['.ts', '.js']
   },
   output: {
     filename: 'bundle.js',
