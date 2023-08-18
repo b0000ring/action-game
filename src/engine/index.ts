@@ -4,11 +4,14 @@ import { IAppState } from '@common/interfaces/IAppState'
 import { Types } from '@common/interfaces/IScene'
 import { IView } from './interfaces/IView'
 import { LoadingView } from './classes/views/Loading'
+import { IEventsController } from './interfaces/IEventsController'
+import { EventsController } from './classes/controllers/EventsController'
 
 export class Engine {
   private app: Application<ICanvas>
   private view: IView
   private currentType: Types
+  private eventsController: IEventsController
 
   private setView(type: Types) {
     const container = new Container()
@@ -18,7 +21,7 @@ export class Engine {
     switch(type) {
       case Types.loading:
         this.view = new LoadingView(container)
-        break;
+        break
       case Types.game:
       case Types.menu:
       default:
@@ -26,8 +29,13 @@ export class Engine {
     }
   }
 
+  get events() {
+    return this.eventsController.events
+  }
+
   constructor() {
     this.app = new Application({ width: 640, height: 360 })
+    this.eventsController = new EventsController()
 
     document.body.appendChild<any>(this.app.view)
   }

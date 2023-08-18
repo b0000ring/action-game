@@ -1,4 +1,4 @@
-import { AnyScene } from "./IScene";
+import { AnyScene } from "./IScene"
 
 export interface IAppState {
   scene: AnyScene

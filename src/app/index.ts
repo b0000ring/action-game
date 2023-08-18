@@ -1,6 +1,7 @@
 import { IAppState } from "@common/interfaces/IAppState"
 import { AppState } from "./classes/AppState"
 import { LoadingScene } from "./classes/LoadingScene"
+import { IInteractionEvents } from "@common/interfaces/IInteractionEvent"
 
 export class App {
   private _state: IAppState
@@ -11,6 +12,10 @@ export class App {
   }
 
   get state(): IAppState {
-    return this._state;
+    return this._state
+  }
+
+  update(events: IInteractionEvents) {
+    // console.log(events)
   }
 }

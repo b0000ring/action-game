@@ -1,5 +1,5 @@
-import { IAppState } from "@common/interfaces/IAppState";
-import { AnyScene } from "@common/interfaces/IScene";
+import { IAppState } from "@common/interfaces/IAppState"
+import { AnyScene } from "@common/interfaces/IScene"
 
 export class AppState implements IAppState {
   private _scene: AnyScene

@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   mode: 'development',
@@ -26,4 +26,4 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist/native/assets/js'),
   },
-};
+}

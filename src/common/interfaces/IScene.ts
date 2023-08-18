@@ -1,5 +1,5 @@
-import { IGameState } from "./IGameState";
-import { IMenu } from "./IMenu";
+import { IGameState } from "./IGameState"
+import { IMenu } from "./IMenu"
 
 export enum Types {
   loading = 'loading',

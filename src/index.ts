@@ -6,8 +6,8 @@ import { Engine } from './engine'
   const engine = new Engine()
 
   function tick() {
-    const state = app.state
-    engine.render(state)
+    app.update(engine.events)
+    engine.render(app.state)
   }
 
   engine.run(tick)

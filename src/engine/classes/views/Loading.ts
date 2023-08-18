@@ -1,6 +1,6 @@
-import { AnyScene } from "@common/interfaces/IScene";
-import { IView } from "@engine/interfaces/IView";
-import { Container, Text } from "pixi.js";
+import { AnyScene } from "@common/interfaces/IScene"
+import { IView } from "@engine/interfaces/IView"
+import { Container, Text } from "pixi.js"
 
 export class LoadingView implements IView {
   private container: Container
@@ -11,7 +11,7 @@ export class LoadingView implements IView {
     this.text = new Text('Loading', {
       fill: 0xFFFFFF,
       fontSize: 14
-    });
+    })
     this.container.addChild(this.text)
   }
 
