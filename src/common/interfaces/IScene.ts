@@ -1,27 +1,27 @@
 import { IGameState } from "./IGameState"
 import { IMenu } from "./IMenu"
 
-export enum Types {
+export enum SceneTypes {
   loading = 'loading',
   game = 'game',
   menu = 'menu'
 }
 
 export interface IScene<T> {
-  type: Types
+  type: SceneTypes
   data: T
 }
 
 export interface ILoadingScene extends IScene<null> {
-  type: Types.loading
+  type: SceneTypes.loading
 }
 
 export interface IGameScene extends IScene<IGameState> {
-  type: Types.game
+  type: SceneTypes.game
 }
 
 export interface IMenuScene extends IScene<IMenu>{
-  type: Types.menu
+  type: SceneTypes.menu
 }
 
 export type AnyScene = IMenuScene | IGameScene | ILoadingScene

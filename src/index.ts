@@ -7,7 +7,7 @@ import { Engine } from './engine'
 
   function tick() {
     app.update(engine.events)
-    engine.render(app.state)
+    engine.update(app.state)
   }
 
   engine.run(tick)

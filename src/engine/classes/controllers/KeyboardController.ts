@@ -5,6 +5,16 @@ import { InteractionEvent } from '../InteractionEvent'
 export class KeyboardController implements IController<IInteractionEvent> {
   private keys: IInteractionEvent[] = []
 
+  private keyDown = (e: KeyboardEvent) => {
+    const event = new InteractionEvent(InteractionEventType.keydown, e.key)
+    this.keys.push(event)
+  }
+
+  private keyUp = (e: KeyboardEvent) => {
+    const event = new InteractionEvent(InteractionEventType.keyup, e.key)
+    this.keys.push(event)
+  }
+
   constructor() {
     window.addEventListener('keydown', this.keyDown, false)
     window.addEventListener('keyup', this.keyUp, false)
@@ -16,15 +26,7 @@ export class KeyboardController implements IController<IInteractionEvent> {
     return keys
   }
 
-  keyDown = (e: KeyboardEvent) => {
-    const event = new InteractionEvent(InteractionEventType.keydown, e.key)
-    this.keys.push(event)
-  }
-
-  keyUp = (e: KeyboardEvent) => {
-    const event = new InteractionEvent(InteractionEventType.keyup, e.key)
-    this.keys.push(event)
-  }
+  update() {}
 
   destroy() {
     window.removeEventListener('keydown', this.keyDown)
