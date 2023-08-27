@@ -7,6 +7,7 @@ export class AppState implements IAppState {
   private _scene: AnyScene
 
   set scene(newScene: AnyScene) {
+    this._scene?.destroy()
     this._scene = newScene
   }
 
@@ -14,11 +15,18 @@ export class AppState implements IAppState {
     return this._scene
   }
 
+  get state() {
+    return {
+      scene: {
+        type: this._scene.type,
+        data: this._scene.data
+      }
+    }
+  }
+
   update(events: IInteractionEvents) {
     if(events.loading.length > 0) {
       this.scene = new GameScene()
     }
   }
-
-  // map
 }

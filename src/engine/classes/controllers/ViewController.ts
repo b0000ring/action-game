@@ -2,7 +2,7 @@ import { SceneTypes } from '@common/interfaces/IScene'
 import { IController } from '@engine/interfaces/IController'
 import { Container, DisplayObject } from 'pixi.js'
 import { LoadingView } from '../views/Loading'
-import { IAppState } from '@common/interfaces/IAppState'
+import { AppState, IAppState } from '@common/interfaces/IAppState'
 import { IView } from '@engine/interfaces/IView'
 import { GameView } from '../views/Game'
 
@@ -43,7 +43,7 @@ export class ViewController implements IController<void> {
     return []
   }
 
-  update(state: IAppState) {
+  update(state: AppState) {
     this.scene = state.scene.type
 
     this.view.draw(state.scene)

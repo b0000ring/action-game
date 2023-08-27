@@ -1,8 +1,12 @@
 import { IInteractionEvents } from './IInteractionEvent'
-import { AnyScene } from "./IScene"
+import { AnyScene, AnySceneData } from "./IScene"
 
 export interface IAppState {
   scene: AnyScene
+  state: AppState,
   update: (events: IInteractionEvents) => void
-  // map
+}
+
+export type AppState =  {
+  scene: AnySceneData
 }

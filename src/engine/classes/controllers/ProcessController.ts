@@ -1,7 +1,7 @@
 import { SceneTypes } from '@common/interfaces/IScene'
 import { IController } from '@engine/interfaces/IController'
 import { Resource } from 'pixi.js'
-import { IAppState } from '@common/interfaces/IAppState'
+import { AppState, IAppState } from '@common/interfaces/IAppState'
 import { LoadingProcess } from '../process/LoadingProcess'
 import { IProcess } from '@engine/interfaces/IProcess'
 
@@ -27,7 +27,7 @@ export class ProcessController implements IController<void> {
     return []
   }
 
-  update(state: IAppState) {
+  update(state: AppState) {
     if(!this.processes[state.scene.type]) {
       this.addProcess(state.scene.type)
     }

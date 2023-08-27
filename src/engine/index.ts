@@ -1,5 +1,5 @@
 import { Application, ICanvas, Container } from 'pixi.js'
-import { IAppState } from '@common/interfaces/IAppState'
+import { AppState, IAppState } from '@common/interfaces/IAppState'
 import { EventsController } from './classes/controllers/EventsController'
 import { ViewController } from './classes/controllers/ViewController'
 import { ProcessController } from './classes/controllers/ProcessController'
@@ -35,7 +35,7 @@ export class Engine {
     this.app.ticker.add(update)
   }
 
-  update(state: IAppState) {
+  update(state: AppState) {
     this.viewController.update(state)
     this.processController.update(state)
   }

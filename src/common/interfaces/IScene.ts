@@ -10,6 +10,7 @@ export enum SceneTypes {
 export interface IScene<T> {
   type: SceneTypes
   data: T
+  destroy: () => void
 }
 
 export interface ILoadingScene extends IScene<null> {
@@ -25,3 +26,8 @@ export interface IMenuScene extends IScene<IMenu>{
 }
 
 export type AnyScene = IMenuScene | IGameScene | ILoadingScene
+
+export type AnySceneData = {
+  data: AnyScene['data']
+  type: AnyScene['type']
+}
