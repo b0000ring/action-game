@@ -1,17 +1,21 @@
 import { Keys, subscribe, unsubscribe } from '@app/modules/Commands'
 import { GameAdapter } from '@common/adapters/GameAdapter'
 import { IAdapter } from '@common/interfaces/IAdapter'
-import { IGameState } from '@common/interfaces/IGameState'
-import { IGameScene, SceneTypes } from "@common/interfaces/IScene"
+import { IScene } from "@common/interfaces/IScene"
+import { GameState } from '@common/types/GameState'
+import { SceneTypes, GameScene as GameSceneType } from '@common/types/Scene'
 
-export class GameScene implements IGameScene {
-  protected game: IAdapter<IGameState>
+export class GameScene implements IScene<GameSceneType> {
+  protected game: IAdapter<GameState>
   protected subscription: () => void
   
-  type: IGameScene['type'] = SceneTypes.game
+  type: GameSceneType['type'] = SceneTypes.game
 
   get data() {
-    return this.game.data
+    return {
+      type: this.type,
+      data: this.game.data
+    }
   }
 
   constructor() {

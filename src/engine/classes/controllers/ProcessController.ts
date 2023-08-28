@@ -1,9 +1,8 @@
-import { SceneTypes } from '@common/interfaces/IScene'
+import { SceneTypes } from '@common/types/Scene'
 import { IController } from '@engine/interfaces/IController'
-import { Resource } from 'pixi.js'
-import { AppState, IAppState } from '@common/interfaces/IAppState'
 import { LoadingProcess } from '../process/LoadingProcess'
 import { IProcess } from '@engine/interfaces/IProcess'
+import { AppState } from '@common/types/AppState'
 
 export class ProcessController implements IController<void> {
   private processes: {[key in SceneTypes]?: IProcess} = {}

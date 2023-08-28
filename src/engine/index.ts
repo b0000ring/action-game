@@ -1,8 +1,8 @@
 import { Application, ICanvas, Container } from 'pixi.js'
-import { AppState, IAppState } from '@common/interfaces/IAppState'
 import { EventsController } from './classes/controllers/EventsController'
 import { ViewController } from './classes/controllers/ViewController'
 import { ProcessController } from './classes/controllers/ProcessController'
+import { AppState } from '@common/types/AppState'
 
 export class Engine {
   private app: Application<ICanvas>

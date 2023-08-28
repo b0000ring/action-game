@@ -1,22 +1,19 @@
-import { AppState as AppStateType, IAppState } from "@common/interfaces/IAppState"
+import { InteractionEvents } from '@common/types/Event'
 import { AppState } from "./classes/AppState"
-import { LoadingScene } from "./classes/scene/LoadingScene"
-import { IInteractionEvents } from "@common/interfaces/IInteractionEvent"
 import { apply } from './modules/Commands'
 
 export class App {
-  private _state: IAppState
+  private _state: AppState
 
   constructor() {
     this._state = new AppState()
-    this._state.scene = new LoadingScene()
   }
 
-  get state(): AppStateType {
+  get state(): AppState['state'] {
     return this._state.state
   }
 
-  update(events: IInteractionEvents) {
+  update(events: InteractionEvents) {
     this._state.update(events)
     apply(events)
   }

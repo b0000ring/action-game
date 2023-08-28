@@ -1,6 +1,6 @@
 import { Command } from '@common/classes/Command'
 import { ICommand } from '@common/interfaces/ICommand'
-import { IInteractionEvents, InteractionEventType } from '@common/interfaces/IInteractionEvent'
+import { InteractionEventType, InteractionEvents } from '@common/types/Event'
 
 const tempConfig: {[key in InteractionEventType]?: {[key: string]: string} } = {
   [InteractionEventType.keyup]: {
@@ -29,12 +29,12 @@ export function unsubscribe(key: Keys, callback: () => void) {
   subscribers[key] = subscribers[key].filter(item => item !== callback)
 }
 
-export function apply(events: IInteractionEvents) {
+export function apply(events: InteractionEvents) {
   const gameCommands = getGameCommands(events)
   subscribers[Keys.game].forEach(item => item(gameCommands))
 }
 
-function getGameCommands(events: IInteractionEvents): ICommand[] {
+function getGameCommands(events: InteractionEvents): ICommand[] {
   const result: ICommand[] = []
   events.keyboard.forEach(item => {
     const command = tempConfig[item.type]?.[item.data]

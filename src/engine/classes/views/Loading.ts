@@ -1,4 +1,4 @@
-import { AnyScene } from "@common/interfaces/IScene"
+import { LoadingScene } from '@common/types/Scene'
 import { IView } from "@engine/interfaces/IView"
 import { Container, Text } from "pixi.js"
 
@@ -15,7 +15,7 @@ export class LoadingView implements IView {
     this.container.addChild(this.text)
   }
 
-  draw(scene: AnyScene) {
+  draw(scene: LoadingScene) {
     
   }
 }

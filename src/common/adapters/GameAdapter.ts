@@ -1,9 +1,9 @@
 import { IAdapter } from '@common/interfaces/IAdapter'
 import { ICommand } from '@common/interfaces/ICommand'
-import { IGameState } from '@common/interfaces/IGameState'
+import { GameState } from '@common/types/GameState'
 import { Game } from '@game/index'
 
-export class GameAdapter implements IAdapter<IGameState> {
+export class GameAdapter implements IAdapter<GameState> {
   protected game: Game
 
   get data() {

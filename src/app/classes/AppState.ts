@@ -1,30 +1,28 @@
-import { IAppState } from "@common/interfaces/IAppState"
-import { IInteractionEvents } from '@common/interfaces/IInteractionEvent'
-import { AnyScene } from "@common/interfaces/IScene"
 import { GameScene } from './scene/GameScene'
+import { LoadingScene } from './scene/LoadingScene'
+import { AnyScene } from '@common/types/Scene'
+import { IScene } from '@common/interfaces/IScene'
+import { InteractionEvents } from '@common/types/Event'
 
-export class AppState implements IAppState {
-  private _scene: AnyScene
+export class AppState {
+  private _scene: IScene<AnyScene>
 
-  set scene(newScene: AnyScene) {
+  set scene(newScene: IScene<AnyScene>) {
     this._scene?.destroy()
     this._scene = newScene
   }
 
-  get scene() {
-    return this._scene
-  }
-
   get state() {
     return {
-      scene: {
-        type: this._scene.type,
-        data: this._scene.data
-      }
+      scene: this._scene.data
     }
   }
 
-  update(events: IInteractionEvents) {
+  constructor() {
+    this._scene = new LoadingScene()
+  }
+
+  update(events: InteractionEvents) {
     if(events.loading.length > 0) {
       this.scene = new GameScene()
     }

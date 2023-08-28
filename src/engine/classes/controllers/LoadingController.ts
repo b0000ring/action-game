@@ -1,9 +1,9 @@
 import { IController } from '@engine/interfaces/IController'
-import { IInteractionEvent, InteractionEventType } from '@common/interfaces/IInteractionEvent'
+import {  InteractionEventType } from '@common/types/Event'
 import { InteractionEvent } from '../InteractionEvent'
 
-export class LoadingController implements IController<IInteractionEvent> {
-  private events: IInteractionEvent[] = []
+export class LoadingController implements IController<InteractionEvent> {
+  private events: InteractionEvent[] = []
 
   private loadingComplete = () => {
     const event = new InteractionEvent(InteractionEventType.loadingDone, '')

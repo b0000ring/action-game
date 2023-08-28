@@ -1,9 +1,9 @@
 import { IController } from '@engine/interfaces/IController'
-import { IInteractionEvent, InteractionEventType } from '@common/interfaces/IInteractionEvent'
 import { InteractionEvent } from '../InteractionEvent'
+import { InteractionEventType } from '@common/types/Event'
 
-export class KeyboardController implements IController<IInteractionEvent> {
-  private keys: IInteractionEvent[] = []
+export class KeyboardController implements IController<InteractionEvent> {
+  private keys: InteractionEvent[] = []
 
   private keyDown = (e: KeyboardEvent) => {
     const event = new InteractionEvent(InteractionEventType.keydown, e.key)

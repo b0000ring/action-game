@@ -1,10 +1,10 @@
-import { SceneTypes } from '@common/interfaces/IScene'
+import { SceneTypes } from '@common/types/Scene'
 import { IController } from '@engine/interfaces/IController'
 import { Container, DisplayObject } from 'pixi.js'
 import { LoadingView } from '../views/Loading'
-import { AppState, IAppState } from '@common/interfaces/IAppState'
 import { IView } from '@engine/interfaces/IView'
 import { GameView } from '../views/Game'
+import { AppState } from '@common/types/AppState'
 
 export class ViewController implements IController<void> {
   private container: Container<DisplayObject>
