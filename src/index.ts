@@ -3,7 +3,7 @@ import { Engine } from './engine'
 
 (function start() {
   const app = new App()
-  const engine = new Engine()
+  const engine = new Engine(app.systemData)
 
   function tick() {
     app.update(engine.events)

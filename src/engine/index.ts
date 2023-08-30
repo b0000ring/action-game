@@ -3,6 +3,7 @@ import { EventsController } from './classes/controllers/EventsController'
 import { ViewController } from './classes/controllers/ViewController'
 import { ProcessController } from './classes/controllers/ProcessController'
 import { AppState } from '@common/types/AppState'
+import { SystemData } from '@common/types/SystemData'
 
 export class Engine {
   private app: Application<ICanvas>
@@ -15,9 +16,9 @@ export class Engine {
     return this.eventsController.events
   }
 
-  constructor() {
+  constructor(config: SystemData) {
     // create app
-    this.app = new Application({ width: 640, height: 360 })
+    this.app = new Application({ width: config.screenSize.width, height: config.screenSize.height })
     // create events controller
     this.eventsController = new EventsController()
     // create general view container

@@ -1,30 +1,20 @@
-import { GameScene } from './scene/GameScene'
-import { LoadingScene } from './scene/LoadingScene'
-import { AnyScene } from '@common/types/Scene'
-import { IScene } from '@common/interfaces/IScene'
 import { InteractionEvents } from '@common/types/Event'
+import { SceneController } from './controller/SceneController'
 
 export class AppState {
-  private _scene: IScene<AnyScene>
-
-  set scene(newScene: IScene<AnyScene>) {
-    this._scene?.destroy()
-    this._scene = newScene
-  }
+  protected sceneController: SceneController
 
   get state() {
     return {
-      scene: this._scene.data
+      scene: this.sceneController.data
     }
   }
 
   constructor() {
-    this._scene = new LoadingScene()
+    this.sceneController = new SceneController()
   }
 
   update(events: InteractionEvents) {
-    if(events.loading.length > 0) {
-      this.scene = new GameScene()
-    }
+    this.sceneController.update(events)
   }
 }
