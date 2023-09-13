@@ -10,7 +10,7 @@ export class GameView implements IView {
     this.container = container
 
     this.player = new Graphics()
-    this.player.beginFill(0xFFFF00)
+    this.player.beginFill(0xFFF00)
     this.player.drawRect(50, 50, 30, 50);
     this.container.addChild(this.player)
   }

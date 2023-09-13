@@ -1,45 +1,21 @@
 import { ICommand } from '@common/interfaces/ICommand'
+import { Player } from './classes/characters/Player'
+import { apply as applyControls } from './modules/handlers/Controls'
+import { apply as applyUpdates } from './modules/handlers/Updates'
+import { apply as applyPhysics } from './modules/handlers/Physics'
 
 export class Game {
-  player = {x: 0, y: 0}
-  moving = {
-    left: 0,
-    right: 0,
-    top: 0,
-    down: 0
-  }
+  player = new Player(0, 0)
 
   get state() {
     return {
-      player: this.player
+      player: this.player.data
     }
   }
 
   update(commands: ICommand[]) {
-    commands.forEach(item => {
-      switch(item.type) {
-        case 'start_go_right': 
-          this.moving.right = 1
-          break;
-        case 'stop_go_left':
-          this.moving.left = 0
-          break;
-        case 'start_go_left': 
-          this.moving.left = 1
-          break;
-        case 'stop_go_right': 
-          this.moving.right = 0
-          break;
-        default: 
-          return
-      }
-    })
-
-    this.move()
-  }
-
-  private move() {
-    this.player.x += this.moving.right
-    this.player.x -= this.moving.left
+    applyControls(commands)
+    applyPhysics()
+    applyUpdates()
   }
 }

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "webpack --watch",
     "serve": "http-server ./dist/native",
+    "start": "npm run dev & npm run serve",
     "test": "jest"
   },
   "author": "",
