@@ -9,7 +9,8 @@ const tempConfig: {[key in InteractionEventType]?: {[key: string]: string} } = {
   },
   [InteractionEventType.keydown]: {
     'd': 'start_go_right',
-    'a': 'start_go_left'
+    'a': 'start_go_left',
+    ' ': 'jump'
   }
 }
 

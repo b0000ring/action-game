@@ -22,8 +22,21 @@ export function apply() {
         data.y < nextData.y + nextData.height &&
         data.y + data.height > nextData.y
       ) {
-        if((data.y + data.height) <= (nextData.y + nextData.height)) {
+        if((data.y + data.height) <= (nextData.y + nextData.height / 2)) {
           item?.cb('down')
+          return
+        }
+        if((data.x + data.width) <= (nextData.x + nextData.width / 2)) {
+          item?.cb('right')
+          return
+        }
+        if((data.y) >= (nextData.y + nextData.height / 2)) {
+          item?.cb('up')
+          return
+        }
+        if((data.x) >= (nextData.x + nextData.width / 2)) {
+          item?.cb('left')
+          return
         }
       }
     })

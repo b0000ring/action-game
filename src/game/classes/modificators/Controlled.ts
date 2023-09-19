@@ -3,6 +3,8 @@ import { IModificator } from '@game/interfaces/IModificator'
 import { subscribe, unsubscribe } from '@game/modules/handlers/Controls'
 import { Move } from '../effects/Move'
 import { IEffect } from '@game/interfaces/IEffect'
+import { Effect } from '@common/types/Effect'
+import { Impulse } from '../effects/Impulse'
 
 export class Controlled implements IModificator {
   private addEffect: (data: IEffect) => void
@@ -13,6 +15,7 @@ export class Controlled implements IModificator {
     top: 0,
     down: 0
   }
+  private jump = false
 
   private applyEffects() {
     const { down, left, right, top } = this.moving
@@ -36,6 +39,10 @@ export class Controlled implements IModificator {
         case 'stop_go_right': 
           this.moving.right = 0
           break;
+        case 'jump':
+          if(!this.jump) {
+            this.addEffect(new Impulse(0, -3, 20))
+          }
         default: 
           return
       }
@@ -49,7 +56,13 @@ export class Controlled implements IModificator {
     subscribe(this.update)
   }
 
-  apply() {}
+  apply(effects: Effect[]) {
+    let jump = true
+    if(effects.find(item => item.type === 'collision' && item.direction === 'down')) {
+      jump = false
+    }
+    this.jump = jump
+  }
 
   destroy() {
     unsubscribe(this.update)

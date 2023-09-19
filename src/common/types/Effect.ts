@@ -1,6 +1,7 @@
 export type Effect = {
   type: string
-  x?: number,
+  x?: number
   y?: number
   direction?: string
+  length?: number
 }

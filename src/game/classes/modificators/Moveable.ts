@@ -16,12 +16,21 @@ export class Moveable implements IModificator {
     const collisions = effects.filter(item => item.type === 'collision')
     effects.forEach(item => {
       // TODO fix type
-      if(item.type === 'move' && item.x !== undefined && item.y !== undefined) {
+      if((item.type === 'move' || item.type === 'collision') && item.x !== undefined && item.y !== undefined) {
         let newX = item.x
         let newY = item.y
 
         collisions.forEach(item => {
           if(item.direction === 'down' && newY > 0) {
+            newY = 0
+          }
+          if(item.direction === 'right' && newX > 0) {
+            newX = 0
+          }
+          if(item.direction === 'left' && newX < 0) {
+            newX = 0
+          }
+          if(item.direction === 'up' && newY < 0) {
             newY = 0
           }
         })

@@ -10,7 +10,7 @@ export class Collision implements IEffect {
   get data() {
     return {
       type: 'collision',
-      direction: this.direction
+      direction: this.direction,
     }
   }
 }
