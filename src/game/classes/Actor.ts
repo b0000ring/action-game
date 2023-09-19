@@ -8,16 +8,28 @@ export abstract class Actor implements IActor {
   protected effects = new Effects()
   protected x: number
   protected y: number
+  protected width: number
+  protected height: number
 
-  constructor(x: number, y: number) {
+  protected move = (x: number, y: number) => {
+    this.x += x
+    this.y += y
+  }
+
+  constructor(x: number, y: number, width: number, height: number) {
     this.x = x
     this.y = y
+    this.width = width
+    this.height = height
   }
 
   get data() {
     return {
       x: this.x,
-      y: this.y
+      y: this.y,
+      width: this.width,
+      height: this.height,
+      effects: this.effects.effects
     }
   }
 
