@@ -6,10 +6,16 @@ import { Effects } from './effects/Effects'
 export abstract class Actor implements IActor {
   protected modificators: IModificator[] = []
   protected effects = new Effects()
+
   protected x: number
   protected y: number
   protected width: number
   protected height: number
+
+  protected applyEffects = () => {
+    this.modificators.forEach(item => item.apply(this.effects.effects))
+    this.effects.clear()
+  }
 
   protected move = (x: number, y: number) => {
     this.x += x

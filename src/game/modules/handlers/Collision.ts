@@ -5,6 +5,10 @@ let subscribers: {
   cb: (direction: string) => void
 }[] = []
 
+// think about optimisation
+// like splitting object on two groups
+// those who looks collision and those WITH collision can happen
+// check only for collision between first and last but not all with each other
 export function apply() {
   const items = [...subscribers]
 
@@ -24,18 +28,22 @@ export function apply() {
       ) {
         if((data.y + data.height) <= (nextData.y + nextData.height / 2)) {
           item?.cb('down')
-          return
-        }
-        if((data.x + data.width) <= (nextData.x + nextData.width / 2)) {
-          item?.cb('right')
+          next.cb('up')
           return
         }
         if((data.y) >= (nextData.y + nextData.height / 2)) {
           item?.cb('up')
+          next.cb('down')
+          return
+        }
+        if((data.x + data.width) <= (nextData.x + nextData.width / 2)) {
+          item?.cb('right')
+          next.cb('left')
           return
         }
         if((data.x) >= (nextData.x + nextData.width / 2)) {
           item?.cb('left')
+          next.cb('right')
           return
         }
       }

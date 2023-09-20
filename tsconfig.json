@@ -7,6 +7,8 @@
     "target": "es5",
     "moduleResolution": "node",
     "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
       "@common/*": [

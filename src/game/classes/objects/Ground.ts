@@ -1,15 +1,14 @@
 import { Actor } from '../Actor'
 import { Collided } from '../modificators/Collided'
+import { Exportable } from '../modificators/Exportable'
+
+const CELL_SIZE = 30
 
 export class Ground extends Actor {
   constructor(x: number, y: number) {
-    super(x, y, 200, 30)
+    super(x, y, CELL_SIZE, CELL_SIZE)
 
-    this.modificators.push(new Collided(() => this.data, this.effects.add))
-  }
-
-  applyEffects = () => {
-    this.modificators.forEach(item => item.apply(this.effects.effects))
-    this.effects.clear()
+    this.modificators.push(new Collided(() => this.data, () => null))
+    this.modificators.push(new Exportable(() => this.data))
   }
 }

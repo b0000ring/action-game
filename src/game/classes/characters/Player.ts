@@ -1,6 +1,7 @@
 import { Actor } from '../Actor'
 import { Collided } from '../modificators/Collided'
 import { Controlled } from '../modificators/Controlled'
+import { Exportable } from '../modificators/Exportable'
 import { Moveable } from '../modificators/Moveable'
 import { Physical } from '../modificators/Physical'
 import { Updatable } from '../modificators/Updatable'
@@ -14,10 +15,6 @@ export class Player extends Actor {
     this.modificators.push(new Collided(() => this.data, this.effects.add))
     this.modificators.push(new Moveable(this.move))
     this.modificators.push(new Updatable(this.applyEffects))
-  }
-
-  applyEffects = () => {
-    this.modificators.forEach(item => item.apply(this.effects.effects))
-    this.effects.clear()
+    this.modificators.push(new Exportable(() => this.data))
   }
 }
