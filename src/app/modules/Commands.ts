@@ -5,12 +5,14 @@ import { InteractionEventType, InteractionEvents } from '@common/types/Event'
 const tempConfig: {[key in InteractionEventType]?: {[key: string]: string} } = {
   [InteractionEventType.keyup]: {
     'd': 'stop_go_right',
-    'a': 'stop_go_left'
+    'a': 'stop_go_left',
+    'k': 'stop_attack'
   },
   [InteractionEventType.keydown]: {
     'd': 'start_go_right',
     'a': 'start_go_left',
-    ' ': 'jump'
+    ' ': 'jump',
+    'k': 'start_attack'
   }
 }
 

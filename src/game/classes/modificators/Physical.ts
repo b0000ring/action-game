@@ -11,7 +11,7 @@ export class Physical implements IModificator {
   
   private update = () => {
     let newX = 0
-    let newY = 1
+    let newY = 3
 
     this.impulses.forEach(item => {
       newX += item.x || 0

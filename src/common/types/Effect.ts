@@ -3,5 +3,6 @@ export type Effect = {
   x?: number
   y?: number
   direction?: string
+  turning?: 1 | -1
   length?: number
 }

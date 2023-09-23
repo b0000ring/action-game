@@ -6,7 +6,8 @@ import { Effects } from './effects/Effects'
 export abstract class Actor implements IActor {
   protected modificators: IModificator[] = []
   protected effects = new Effects()
-
+  // 1 - default, -1 mirrored
+  protected direction: 1 | -1 = 1
   protected x: number
   protected y: number
   protected width: number
@@ -31,6 +32,7 @@ export abstract class Actor implements IActor {
 
   get data() {
     return {
+      direction: this.direction,
       x: this.x,
       y: this.y,
       width: this.width,
@@ -39,7 +41,7 @@ export abstract class Actor implements IActor {
     }
   }
 
-  destroy() {
+  destroy = () => {
     this.modificators.forEach(item => item.destroy())
   }
 }

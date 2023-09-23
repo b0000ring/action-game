@@ -5,6 +5,8 @@ import { Move } from '../effects/Move'
 import { IEffect } from '@game/interfaces/IEffect'
 import { Effect } from '@common/types/Effect'
 import { Impulse } from '../effects/Impulse'
+import { Attack } from '../effects/Attack'
+import { Turn } from '../effects/Turn'
 
 export class Controlled implements IModificator {
   private addEffect: (data: IEffect) => void
@@ -16,11 +18,21 @@ export class Controlled implements IModificator {
     down: 0
   }
   private jump = false
+  private attacking = false
 
   private applyEffects() {
     const { down, left, right, top } = this.moving
     if(down || left || right || top) {
       this.addEffect(new Move(right - left, down - top))
+      if(left > right) {
+        this.addEffect(new Turn(-1))
+      } else {
+        this.addEffect(new Turn(1))
+      }
+    }
+
+    if(this.attacking) {
+      this.addEffect(new Attack())
     }
   }
 
@@ -29,20 +41,27 @@ export class Controlled implements IModificator {
       switch(item.type) {
         case 'start_go_right': 
           this.moving.right = 1
-          break;
+          break
         case 'stop_go_left':
           this.moving.left = 0
-          break;
+          break
         case 'start_go_left': 
           this.moving.left = 1
-          break;
+          break
         case 'stop_go_right': 
           this.moving.right = 0
-          break;
+          break
         case 'jump':
           if(!this.jump) {
-            this.addEffect(new Impulse(0, -3, 20))
+            this.addEffect(new Impulse(0, -10, 15))
           }
+          break;   
+        case 'start_attack':
+          this.attacking = true   
+          break;  
+        case 'stop_attack':
+          this.attacking = false  
+          break;
         default: 
           return
       }

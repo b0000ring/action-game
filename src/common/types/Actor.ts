@@ -3,4 +3,5 @@ export type Actor = {
   y: number
   width: number
   height: number
+  direction: 1 | -1
 }

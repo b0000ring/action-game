@@ -25,5 +25,9 @@ export class GameView implements IView {
 
       this.container.addChild(newGraphics)
     })
+
+    if(this.container.children.length > data.data.items.length) {
+      this.container.removeChildren(data.data.items.length)
+    }
   }
 }
