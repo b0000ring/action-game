@@ -5,4 +5,5 @@ export type Effect = {
   direction?: string
   turning?: 1 | -1
   length?: number
+  damage?: number
 }

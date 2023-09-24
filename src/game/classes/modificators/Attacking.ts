@@ -23,7 +23,7 @@ export class Attacking implements IModificator {
 
   apply(effects: Effect[]) {
     const attacks = effects.filter(item => item.type === 'attack')
-    attacks.forEach(item => this.createAttack())
+    attacks.forEach(() => this.createAttack())
   } 
 
   destroy() {}

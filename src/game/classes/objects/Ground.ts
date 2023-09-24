@@ -6,7 +6,7 @@ const CELL_SIZE = 30
 
 export class Ground extends Actor {
   constructor(x: number, y: number) {
-    super(x, y, CELL_SIZE, CELL_SIZE)
+    super('ground', x, y, CELL_SIZE, CELL_SIZE)
 
     this.modificators.push(new Collided(() => this.data, () => null))
     this.modificators.push(new Exportable(() => this.data))

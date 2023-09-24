@@ -1,6 +1,7 @@
 import { IActor } from '@game/interfaces/IActor'
 import { IModificator } from '@game/interfaces/IModificator'
 import { Effects } from './effects/Effects'
+import { Identifiable } from './modificators/Identifiable'
 
 // general object with position
 export abstract class Actor implements IActor {
@@ -23,21 +24,33 @@ export abstract class Actor implements IActor {
     this.y += y
   }
 
-  constructor(x: number, y: number, width: number, height: number) {
+  constructor(key: string, x: number, y: number, width: number, height: number) {
     this.x = x
     this.y = y
     this.width = width
     this.height = height
+
+    this.modificators.push(new Identifiable(key))
   }
 
   get data() {
+    const modificators = {}
+    this.modificators.forEach(item => {
+      const state = item.state
+
+      if(state) {
+        Object.assign(modificators, state)
+      }
+    })
+
     return {
       direction: this.direction,
       x: this.x,
       y: this.y,
       width: this.width,
       height: this.height,
-      effects: this.effects.effects
+      effects: this.effects.effects,
+      modificators
     }
   }
 
