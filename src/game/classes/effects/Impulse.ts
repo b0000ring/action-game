@@ -1,21 +1,21 @@
 import { IEffect } from '@game/interfaces/IEffect'
 
 export class Impulse implements IEffect {
-  private x: number
-  private y: number
+  private impulsex: (power: number) => number
+  private impulsey: (power: number) => number
   private length: number
 
-  constructor(x: number, y: number, length: number) {
-    this.x = x
-    this.y = y
+  constructor(x: (power: number) => number, y: (power: number) => number, length: number) {
+    this.impulsex = x
+    this.impulsey = y
     this.length = length
   }
 
   get data() {
     return {
       type: 'impulse',
-      x: this.x,
-      y: this.y,
+      impulsex: this.impulsex,
+      impulsey: this.impulsey,
       length: this.length
     }
   }

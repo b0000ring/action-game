@@ -12,7 +12,7 @@ export class Bullet extends Actor {
   constructor(x: number, y: number, direction: 1 | -1) {
     super('bullet', x, y, 10, 5)
 
-    this.effects.add(new Impulse(direction * 5, -3, 200))
+    this.effects.add(new Impulse(() => direction * 5, () => -7, 200))
 
     this.modificators.push(new Damaging(() => this.data, () => new Damage(5)))
     this.modificators.push(new Physical(this.effects.add))

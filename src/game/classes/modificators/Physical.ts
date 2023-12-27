@@ -7,15 +7,15 @@ import { Effect } from '@common/types/Effect'
 
 export class Physical implements IModificator {
   private addEffect: (data: IEffect) => void
-  private impulses: {x?: number, y?: number, length?: number}[] = []
+  private impulses: {impulsex?: (power?: number) => number, impulsey?: (power?: number) => number, length?: number}[] = []
   
   private update = () => {
     let newX = 0
-    let newY = 3
+    let newY = 7
 
     this.impulses.forEach(item => {
-      newX += item.x || 0
-      newY += item.y || 0
+      newX += item.impulsex?.(item.length) || 0
+      newY += item.impulsey?.(item.length) || 0
       item.length = (item.length || 1) - 1
     })
 
@@ -35,10 +35,11 @@ export class Physical implements IModificator {
   apply(effects: Effect[]) {
     const impulses = effects.filter(item => item.type === 'impulse')
       .map(item => ({
-        x: item.x,
-        y: item.y,
+        impulsex: item.impulsex,
+        impulsey: item.impulsey,
         length: item.length
       }))
+
     this.impulses = [...this.impulses, ...impulses]
   }
 }

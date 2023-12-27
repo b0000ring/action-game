@@ -2,7 +2,7 @@ import { Actor } from '../Actor'
 import { Collided } from '../modificators/Collided'
 import { Exportable } from '../modificators/Exportable'
 
-const CELL_SIZE = 30
+const CELL_SIZE = 40
 
 export class Ground extends Actor {
   constructor(x: number, y: number) {

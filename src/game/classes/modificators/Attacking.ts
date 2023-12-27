@@ -12,7 +12,7 @@ export class Attacking implements IModificator {
     const { x, y, width, height, direction} = this.getCoords()
     if(!this.cooldown) {
       this.cooldown = true
-      new Bullet(x + ((width + 10) * direction), y + height / 2.5, direction)
+      new Bullet(x + ((width + 10) * direction), y + height / 3, direction)
       setTimeout(() => this.cooldown = false, 100)
     }
   }
