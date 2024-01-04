@@ -7,6 +7,6 @@ export class Spawn extends Actor {
 
     setInterval(() => {
       new Enemy(x, y)
-    }, 3000)
+    }, 10000)
   }
 }

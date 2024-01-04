@@ -8,8 +8,6 @@ import { Impulse } from '../effects/Impulse'
 import { Attack } from '../effects/Attack'
 import { Turn } from '../effects/Turn'
 
-const SPEED = 3
-
 export class Controlled implements IModificator {
   private addEffect: (data: IEffect) => void
 
@@ -25,7 +23,7 @@ export class Controlled implements IModificator {
   private applyEffects() {
     const { down, left, right, top } = this.moving
     if(down || left || right || top) {
-      this.addEffect(new Move((right - left) * SPEED, (down - top) * SPEED))
+      this.addEffect(new Move(right - left, down - top))
       if(left > right) {
         this.addEffect(new Turn(-1))
       } else {
@@ -59,7 +57,7 @@ export class Controlled implements IModificator {
             const maxValue = 15
             this.addEffect(new Impulse(
               () => 0,
-              (power: number) => -((maxValue / 2) * (1 + Math.sin(initialPower - power * ((Math.PI * 2) / (initialPower - 1))))),
+              (power: number) => -((maxValue / 2) * (1 + Math.cos((initialPower - power) * (Math.PI / (initialPower - 1))))),
               initialPower
             ))
           }

@@ -1,6 +1,6 @@
 import { Actor } from '@common/types/Actor'
 import { IModificator } from '@game/interfaces/IModificator'
-import { subscribe, unsubscribe } from '@game/modules/handlers/Exporting'
+import { subscribe, unsubscribe } from '@game/modules/Exporting'
 
 export class Exportable implements IModificator {
   private callback: () => Actor

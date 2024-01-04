@@ -21,7 +21,7 @@ export class Enemy extends Actor {
     this.modificators.push(new Collided(() => this.data, this.effects.add))
     this.modificators.push(new Moveable(this.move))
     this.modificators.push(new Turnable((direction) => this.direction = direction))
-    this.modificators.push(new Attacking(() => this.data))
+    // this.modificators.push(new Attacking(() => this.data))
     this.modificators.push(new Updatable(this.applyEffects))
     this.modificators.push(new Exportable(() => this.data))
   }
