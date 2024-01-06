@@ -54,7 +54,7 @@ export class Controlled implements IModificator {
         case 'jump':
           if(!this.jump) {
             const initialPower = 30
-            const maxValue = 15
+            const maxValue = 10
             this.addEffect(new Impulse(
               () => 0,
               (power: number) => -((maxValue / 2) * (1 + Math.cos((initialPower - power) * (Math.PI / (initialPower - 1))))),
