@@ -1,6 +1,7 @@
 import { Actor } from '../Actor'
 import { Attacking } from '../modificators/Attacking'
 import { Collided } from '../modificators/Collided'
+import { Colliding } from '../modificators/Colliding'
 import { Damaged } from '../modificators/Damaged'
 import { Exportable } from '../modificators/Exportable'
 import { Healthful } from '../modificators/Healthful'
@@ -20,6 +21,7 @@ export class Enemy extends Actor {
     this.modificators.push(new Healthful(20, this.destroy))
     this.modificators.push(new Intellectual(this.effects.add))
     this.modificators.push(new Physical(this.effects.add))
+    this.modificators.push(new Colliding(() => this.data, this.effects.add))
     this.modificators.push(new Collided(() => this.data, this.effects.add))
     this.modificators.push(new Moveable(this.move))
     this.modificators.push(new Turnable((direction) => this.direction = direction))

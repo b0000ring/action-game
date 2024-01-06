@@ -1,64 +1,68 @@
 import { Actor } from '@common/types/Actor'
 
-let subscribers: {
+let colliding: {
   getData: () => Actor
   cb: (direction: string) => void
 }[] = []
 
-// think about optimisation
-// like splitting object on two groups
-// those who looks collision and those WITH collision can happen
-// check only for collision between first and last but not all with each other
+let collided: {
+  getData: () => Actor
+  cb: (direction: string) => void
+}[] = []
+
 export function apply() {
-  const items = [...subscribers]
+  colliding.forEach((item) => {
+    const data = item.getData()
 
-  while(items.length) {
-    const item = items.shift()
-    const data = item?.getData()
-   
-    if(!data) return
+    collided.forEach(target => {
+      const targetData = target.getData()
 
-    items.forEach(next => {
-      const nextData = next.getData()
       if (
-        data.x < nextData.x + nextData.width &&
-        data.x + data.width > nextData.x &&
-        data.y < nextData.y + nextData.height &&
-        data.y + data.height > nextData.y
+        data.x < targetData.x + targetData.width &&
+        data.x + data.width > targetData.x &&
+        data.y < targetData.y + targetData.height &&
+        data.y + data.height > targetData.y
       ) {
-        if((data.y + data.height) <= (nextData.y + nextData.height / 2)) {
-          item?.cb('down')
-          next.cb('up')
+        if((data.y + data.height) <= (targetData.y + targetData.height / 2)) {
+          item.cb('down')
           return
         }
-        if((data.y) >= (nextData.y + nextData.height / 2)) {
-          item?.cb('up')
-          next.cb('down')
+        if((data.y) >= (targetData.y + targetData.height / 2)) {
+          item.cb('up')
           return
         }
-        if((data.x + data.width) <= (nextData.x + nextData.width / 2)) {
-          item?.cb('right')
-          next.cb('left')
+        if((data.x + data.width) <= (targetData.x + targetData.width / 2)) {
+          item.cb('right')
           return
         }
-        if((data.x) >= (nextData.x + nextData.width / 2)) {
-          item?.cb('left')
-          next.cb('right')
+        if((data.x) >= (targetData.x + targetData.width / 2)) {
+          item.cb('left')
           return
         }
       }
     })
-  }
+  })
 }
 
-export function subscribe(getData: () => Actor, cb: (direction: string) => void) {
-  subscribers.push({
+export function subscribeCollided(getData: () => Actor, cb: (direction: string) => void) {
+  collided.push({
     getData,
     cb
   })
 }
 
-export function unsubscribe(cb: (direction: string) => void) {
-  subscribers = subscribers.filter(item => item.cb !== cb)
+export function unsubscribeCollided(cb: (direction: string) => void) {
+  collided = collided.filter(item => item.cb !== cb)
+}
+
+export function subscribeColliding(getData: () => Actor, cb: (direction: string) => void) {
+  colliding.push({
+    getData,
+    cb
+  })
+}
+
+export function unsubscribeColliding(cb: (direction: string) => void) {
+  colliding = colliding.filter(item => item.cb !== cb)
 }
 

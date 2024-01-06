@@ -1,6 +1,5 @@
 import { IEffect } from '@game/interfaces/IEffect'
 import { IModificator } from '@game/interfaces/IModificator'
-import { subscribe, unsubscribe } from '@game/modules/handlers/Physics'
 import { Move } from '../effects/Move'
 import { Effect } from '@common/types/Effect'
 
@@ -25,12 +24,9 @@ export class Physical implements IModificator {
 
   constructor(apply: (data: IEffect) => void) {
     this.addEffect = apply
-    subscribe(this.update)
   }
 
-  destroy() {
-    unsubscribe(this.update)
-  }
+  destroy() {}
 
   apply(effects: Effect[]) {
     const impulses = effects.filter(item => item.type === 'impulse')
@@ -41,5 +37,7 @@ export class Physical implements IModificator {
       }))
 
     this.impulses = [...this.impulses, ...impulses]
+
+    this.update()
   }
 }

@@ -2,6 +2,7 @@ import { Actor } from '../Actor'
 import { Accelerated } from '../modificators/Accelerated'
 import { Attacking } from '../modificators/Attacking'
 import { Collided } from '../modificators/Collided'
+import { Colliding } from '../modificators/Colliding'
 import { Controlled } from '../modificators/Controlled'
 import { Exportable } from '../modificators/Exportable'
 import { Moveable } from '../modificators/Moveable'
@@ -18,6 +19,7 @@ export class Player extends Actor {
     this.modificators.push(new Physical(this.effects.add))
     this.modificators.push(new Accelerated(this.effects.add))
     this.modificators.push(new Weighty(this.effects.add))
+    this.modificators.push(new Colliding(() => this.data, this.effects.add))
     this.modificators.push(new Collided(() => this.data, this.effects.add))
     this.modificators.push(new Moveable(this.move))
     this.modificators.push(new Turnable((direction) => this.direction = direction))
