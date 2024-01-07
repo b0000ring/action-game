@@ -7,14 +7,31 @@ import { Effect } from '@common/types/Effect'
 export class Physical implements IModificator {
   private addEffect: (data: IEffect) => void
   private impulses: {impulsex?: (power?: number) => number, impulsey?: (power?: number) => number, length?: number}[] = []
+  private collisions = {
+    up: false,
+    down: false,
+    right: false,
+    left: false
+  }
   
   private update = () => {
     let newX = 0
     let newY = 0
 
     this.impulses.forEach(item => {
-      newX += item.impulsex?.(item.length) || 0
-      newY += item.impulsey?.(item.length) || 0
+      const movex = item.impulsex?.(item.length) || 0
+      const movey = item.impulsey?.(item.length) || 0
+
+      // stop impulse if collision
+      if(this.collisions.right && movex > 0 || this.collisions.left && movex < 0) {
+        item.impulsex = () => 0
+      }
+      if(this.collisions.up && movey < 0 || this.collisions.down && movey > 0) {
+        item.impulsey = () => 0
+      }
+
+      newX += movex
+      newY += movey
       item.length = (item.length || 1) - 1
     })
 
@@ -35,8 +52,23 @@ export class Physical implements IModificator {
         impulsey: item.impulsey,
         length: item.length
       }))
+   
 
     this.impulses = [...this.impulses, ...impulses]
+    this.collisions = {
+      up: false,
+      down: false,
+      right: false,
+      left: false
+    }
+
+    effects.filter(item => item.type === 'collision')
+      .forEach(item => {
+        if(item.direction === 'up') this.collisions.up = true
+        if(item.direction === 'down') this.collisions.down = true
+        if(item.direction === 'left') this.collisions.left = true
+        if(item.direction === 'right') this.collisions.right = true
+      })
 
     this.update()
   }

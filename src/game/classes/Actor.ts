@@ -56,5 +56,6 @@ export abstract class Actor implements IActor {
 
   destroy = () => {
     this.modificators.forEach(item => item.destroy())
+    this.modificators = []
   }
 }

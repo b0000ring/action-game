@@ -9,8 +9,11 @@ import { Physical } from '../modificators/Physical'
 import { Updatable } from '../modificators/Updatable'
 
 export class Bullet extends Actor {
+  // TODO fix direction type everywhere
   constructor(x: number, y: number, direction: 1 | -1) {
-    super('bullet', x, y, 10, 5)
+    const type = 'bullet'
+
+    super(type, x, y, 10, 5)
 
     this.effects.add(new Impulse(() => direction * 5, () => 0, 200))
 
