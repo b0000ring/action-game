@@ -55,6 +55,7 @@ export class Physical implements IModificator {
    
 
     this.impulses = [...this.impulses, ...impulses]
+    // TODO refactor
     this.collisions = {
       up: false,
       down: false,

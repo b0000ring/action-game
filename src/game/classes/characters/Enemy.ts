@@ -15,12 +15,12 @@ export class Enemy extends Actor {
   constructor(x: number, y: number) {
     super('enemy', x, y, 20, 50)
 
+    this.modificators.push(new Colliding(() => this.data, this.effects.add, this.move))
     this.modificators.push(new Weighty(this.effects.add))
     this.modificators.push(new Damaged(() => this.data, this.effects.add))
     this.modificators.push(new Healthful(20, this.destroy))
     this.modificators.push(new Intellectual(this.effects.add))
     this.modificators.push(new Physical(this.effects.add))
-    this.modificators.push(new Colliding(() => this.data, this.effects.add))
     this.modificators.push(new Moveable(this.move))
     this.modificators.push(new Turnable((direction) => this.direction = direction))
     this.modificators.push(new Attacking(() => this.data))

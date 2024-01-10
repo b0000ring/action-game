@@ -22,6 +22,7 @@ export class GameView implements IView {
       if(!this.map[id]) {
         const newGraphics = new Graphics()
         newGraphics.beginFill(0xFFFF0)
+        newGraphics.lineStyle({alignment: 0, color: 0x00000, width: 1})
         newGraphics.drawRect(0, 0, item.width, item.height)
         newGraphics.x = item.x
         newGraphics.y = item.y

@@ -1,7 +1,6 @@
 import { ICommand } from '@common/interfaces/ICommand'
 import { apply as applyControls } from './modules/handlers/Controls'
 import { apply as applyUpdates } from './modules/handlers/Updates'
-import { apply as applyCollisions } from './modules/handlers/Collision'
 import { apply as applyDamage } from './modules/handlers/Damage'
 import { get as getDrawable } from './modules/Exporting'
 import { GameState } from '@common/types/GameState'
@@ -22,7 +21,6 @@ export class Game {
 
   update(commands: ICommand[]) {
     applyControls(commands)
-    applyCollisions()
     applyDamage()
     applyUpdates()
   }

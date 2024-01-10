@@ -4,6 +4,7 @@ export interface IModificator {
   destroy: () => void
   apply: (effects: Effect[]) => void
   state?: {
-    id: string
+    id?: string
+    speed?: {speedx: number, speedy: number}
   } 
 }

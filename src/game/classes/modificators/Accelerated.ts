@@ -18,6 +18,13 @@ export class Accelerated implements IModificator {
 
   apply(effects: Effect[]) {
     let foundMoveX = false
+    const collision = effects.find(item => (item.type === 'collision' && (item.direction === 'left' || item.direction === 'right')))
+
+    if(collision) {
+      this.acceleration = 0
+      return
+    }
+
     effects.forEach(item => {
       if((item.type === 'move') && item.x) {
         const direction = Math.sign(item.x)

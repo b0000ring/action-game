@@ -1,11 +1,5 @@
 import { Actor } from '@common/types/Actor'
 
-let colliding: {
-  previousData: Actor,
-  getData: () => Actor
-  cb: (direction: string, data: {x: number, y: number}) => void
-}[] = []
-
 let collided: {
   previousData: Actor,
   getData: () => Actor
@@ -13,16 +7,20 @@ let collided: {
 }[] = []
 
 // TODO refactor
-export function apply() {
-  colliding.forEach((item) => {
-    const data = item.getData()
-    const previousData = item.previousData
-    const x = previousData.x
-    const y = previousData.y
-    const width = data.width + data.x - previousData.x
-    const height = data.height + data.y - previousData.y
+// fix codestyle
+// reduce x overlap max value
+function apply(data: Actor, cb: (direction: string, data: {x: number, y: number}) => void) {
+    let speedx = 0, speedy = 0
 
-    item.previousData = data
+    if(data.modificators.speed) {
+      speedx = data.modificators.speed.speedx
+      speedy = data.modificators.speed.speedy
+    }
+  
+    const x = data.x - speedx
+    const y = data.y - speedy
+    const width = data.width + data.x - x
+    const height = data.height + data.y - y
 
     collided.forEach(target => {
       const targetData = target.getData()
@@ -40,31 +38,45 @@ export function apply() {
         y < targety + targetHeight &&
         y + height > targety
       ) {
-        if((y + height) <= (targety + targetHeight / 2)) {
-          item.cb('down', {x: 0, y: ((data.y + data.height - targetData.y) * -1) + 1})
-          target.cb('up')
-          return
-        }
-        if((y) >= (targety + targetHeight / 2)) {
-          item.cb('up', {x: 0, y: targetData.y + targetData.height - data.y})
-          target.cb('down')
-          return
-        }
-        if((x + width) <= (targetx + targetWidth / 2)) {
-          item.cb('right', {x: (data.x + data.width - targetData.x) * -1, y: 0})
-          target.cb('left')
-          return
-        }
-        if((x) >= (targetx + targetWidth / 2)) {
-          item.cb('left', {x: targetData.x + targetData.width - data.x, y: 0})
-          target.cb('right')
-          return
+
+        // Calculate the differences in position and size
+        const dx = (x + width / 2) - (targetx + targetWidth / 2);
+        const dy = (y + height / 2) - (targety + targetHeight / 2);
+
+        const totalWidth = (width + targetWidth) / 2;
+        const totalHeight = (height + targetHeight) / 2;
+
+        // Calculate the overlap on each axis
+        const overlapX = totalWidth - Math.abs(dx);
+        const overlapY = totalHeight - Math.abs(dy);
+
+        // Determine the collision side based on the minimum overlap
+        if (overlapX >= overlapY - 1 ) {
+            if (dy > 0) {
+              cb('up', {x: 0, y: targetData.y + targetData.height - data.y})
+              target.cb('down')
+              return
+            } else {
+              const offset = overlapY * -1 + 0.5
+              cb('down', {x: 0, y: overlapY > 0.6 ? offset : 0})
+              target.cb('up')
+              return
+            }
+        } else {
+            if (dx > 0) {
+              const offset = overlapX - 0.1
+              cb('left', {x: overlapX > 0 && overlapX < 0.2 ? offset : 0, y: 0})
+              target.cb('right')
+              return
+            } else {
+              const offset = overlapX * -1 + 0.1
+              cb('right', {x: overlapX < 0 && overlapX > -0.2 ? offset : 0, y: 0})
+              target.cb('left')
+              return
+            }
         }
       }
     })
-  })
-
-  collided.forEach(item => item.previousData = item.getData())
 }
 
 export function subscribeCollided(getData: () => Actor, cb: (direction: string) => void) {
@@ -79,14 +91,6 @@ export function unsubscribeCollided(cb: (direction: string) => void) {
   collided = collided.filter(item => item.cb !== cb)
 }
 
-export function subscribeColliding(getData: () => Actor, cb: (direction: string, data: {x: number, y: number}) => void) {
-  colliding.push({
-    previousData: getData(),
-    getData,
-    cb
-  })
-}
-
-export function unsubscribeColliding(cb: (direction: string, data: {x: number, y: number}) => void) {
-  colliding = colliding.filter(item => item.cb !== cb)
+export function checkCollisions(data: Actor, cb: (direction: string, data: {x: number, y: number}) => void) {
+  apply(data, cb)
 }

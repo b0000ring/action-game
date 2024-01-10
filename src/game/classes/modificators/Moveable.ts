@@ -2,41 +2,69 @@ import { Effect } from '@common/types/Effect'
 import { IModificator } from '@game/interfaces/IModificator'
 
 export class Moveable implements IModificator {
-  private _move: (x: number, y: number) => void
+  private move: (x: number, y: number) => void
+  private speed: {speedx: number, speedy: number} = {speedx: 0, speedy: 0}
 
   constructor(move: (x: number, y: number) => void) {
-    this._move = move
+    this.move = move
   }
 
-  destroy() {
-    
+  get state() {
+    return {
+      speed: this.speed
+    }
   }
+
+  destroy() {}
 
   apply(effects: Effect[]) {
-    const collisions = effects.filter(item => item.type === 'collision')
-    effects.forEach(item => {
-      // TODO fix type
-      if((item.type === 'move' || item.type === 'collision') && item.x !== undefined && item.y !== undefined) {
-        let newX = item.x
-        let newY = item.y
+    // TODO refactor
+    const collisions = {
+      up: false,
+      down: false,
+      right: false,
+      left: false
+    }
 
-        collisions.forEach(item => {
-          if(item.direction === 'down' && newY > 0) {
+    let speedx = 0
+    let speedy = 0
+
+    effects.filter(item => item.type === 'collision')
+      .forEach(item => {
+        if(item.direction === 'up') collisions.up = true
+        if(item.direction === 'down') collisions.down = true
+        if(item.direction === 'left') collisions.left = true
+        if(item.direction === 'right') collisions.right = true
+      })
+        
+    effects.filter(item => item.type === 'move')
+      .forEach(item => {
+        // TODO fix type
+        if(item.x !== undefined && item.y !== undefined) {
+          let newX = item.x
+          let newY = item.y
+
+          
+          if(collisions.down && newY > 0) {
             newY = 0
           }
-          if(item.direction === 'right' && newX > 0) {
+          if(collisions.right && newX > 0) {
             newX = 0
           }
-          if(item.direction === 'left' && newX < 0) {
+          if(collisions.left && newX < 0) {
             newX = 0
           }
-          if(item.direction === 'up' && newY < 0) {
+          if(collisions.up && newY < 0) {
             newY = 0
           }
-        })
 
-        this._move(newX, newY)
-      }
-    })
+          speedx += newX
+          speedy += newY
+        
+          this.move(newX, newY)
+        }
+      })
+  
+    this.speed = {speedx, speedy}
   }
 }

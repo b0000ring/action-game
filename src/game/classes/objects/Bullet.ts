@@ -17,11 +17,15 @@ export class Bullet extends Actor {
 
     this.effects.add(new Impulse(() => direction * 5, () => 0, 200))
 
-    this.modificators.push(new Damaging(() => this.data, () => new Damage(5)))
+    this.modificators.push(new Damaging(() => this.data, () => {
+      this.destroy()
+      return new Damage(5)
+    }))
+
     this.modificators.push(new Physical(this.effects.add))
     this.modificators.push(new Exportable(() => this.data))
     this.modificators.push(new Moveable(this.move))
-    this.modificators.push(new Colliding(() => this.data, () => setTimeout(this.destroy, 0)))
+    this.modificators.push(new Colliding(() => this.data, () => setTimeout(this.destroy, 0), this.move))
     this.modificators.push(new Updatable(this.applyEffects))
   }
 }
