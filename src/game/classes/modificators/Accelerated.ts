@@ -3,7 +3,7 @@ import { IEffect } from '@game/interfaces/IEffect'
 import { IModificator } from '@game/interfaces/IModificator'
 import { Move } from '../effects/Move'
 
-const MAX_ACCELERATION = 2
+const MAX_ACCELERATION = 3
 
 export class Accelerated implements IModificator {
   private acceleration: number = 0
