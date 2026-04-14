@@ -1,12 +1,16 @@
-import { Actor } from '@game/classes/Actor'
-import { Enemy } from '@game/classes/characters/Enemy'
-import { Player } from '@game/classes/characters/Player'
-import { Ground } from '@game/classes/objects/Ground'
-import { Spawn } from '@game/classes/objects/Spawn'
+import { Actor } from "@game/classes/Actor";
+import { Enemy } from "@game/classes/characters/Enemy";
+import { Player } from "@game/classes/characters/Player";
+import { Wall } from "@game/classes/objects/Wall";
+import { Spawn } from "@game/classes/objects/Spawn";
 
-export const map: {[key: string]: { new(x: number, y: number, width?: number, height?: number): Actor } } = {
+export const map: {
+  [key: string]: {
+    new (x: number, y: number, width?: number, height?: number): Actor;
+  };
+} = {
   player: Player,
-  ground: Ground,
+  wall: Wall,
   enemy: Enemy,
-  spawn: Spawn
-}
+  spawn: Spawn,
+};

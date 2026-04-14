@@ -1,47 +1,53 @@
-import { IActor } from '@game/interfaces/IActor'
-import { IModificator } from '@game/interfaces/IModificator'
-import { Effects } from './effects/Effects'
-import { Identifiable } from './modificators/Identifiable'
+import { IActor } from "@game/interfaces/IActor";
+import { IModificator } from "@game/interfaces/IModificator";
+import { Effects } from "./effects/Effects";
+import { Identifiable } from "./modificators/Identifiable";
 
 // general object with position
 export abstract class Actor implements IActor {
-  protected modificators: IModificator[] = []
-  protected effects = new Effects()
-  // 1 - default, -1 mirrored
-  protected direction: 1 | -1 = 1
-  protected x: number
-  protected y: number
-  protected width: number
-  protected height: number
+  protected modificators: IModificator[] = [];
+  protected effects = new Effects();
+  // 1 - right, 2 - down, 3 - left, 4 - up
+  protected direction: 1 | 2 | 3 | 4 = 1;
+  protected x: number;
+  protected y: number;
+  protected width: number;
+  protected height: number;
 
   protected applyEffects = () => {
-    this.modificators.forEach(item => item.apply(this.effects.effects))
-    this.effects.clear()
-  }
+    this.modificators.forEach((item) => item.apply(this.effects.effects));
+    this.effects.clear();
+  };
 
   protected move = (x: number, y: number) => {
-    this.x += x
-    this.y += y
-  }
+    this.x += x;
+    this.y += y;
+  };
 
-  constructor(key: string, x: number, y: number, width: number, height: number) {
-    this.x = x
-    this.y = y
-    this.width = width
-    this.height = height
+  constructor(
+    key: string,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  ) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
 
-    this.modificators.push(new Identifiable(key))
+    this.modificators.push(new Identifiable(key));
   }
 
   get data() {
-    const modificators = {}
-    this.modificators.forEach(item => {
-      const state = item.state
+    const modificators = {};
+    this.modificators.forEach((item) => {
+      const state = item.state;
 
-      if(state) {
-        Object.assign(modificators, state)
+      if (state) {
+        Object.assign(modificators, state);
       }
-    })
+    });
 
     return {
       direction: this.direction,
@@ -50,12 +56,12 @@ export abstract class Actor implements IActor {
       width: this.width,
       height: this.height,
       effects: this.effects.effects,
-      modificators
-    }
+      modificators,
+    };
   }
 
   destroy = () => {
-    this.modificators.forEach(item => item.destroy())
-    this.modificators = []
-  }
+    this.modificators.forEach((item) => item.destroy());
+    this.modificators = [];
+  };
 }
