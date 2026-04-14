@@ -1,3 +1,4 @@
+import { Direction } from "@game/types/Direction";
 import { Modificators } from "./Modificators";
 
 export type Actor = {
@@ -5,6 +6,6 @@ export type Actor = {
   y: number;
   width: number;
   height: number;
-  direction: 1 | 2 | 3 | 4;
+  direction: Direction;
   modificators: Modificators;
 };

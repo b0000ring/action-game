@@ -1,5 +1,6 @@
 import { IActor } from "@game/interfaces/IActor";
 import { IModificator } from "@game/interfaces/IModificator";
+import { Direction } from "@game/types/Direction";
 import { Effects } from "./effects/Effects";
 import { Identifiable } from "./modificators/Identifiable";
 
@@ -7,8 +8,7 @@ import { Identifiable } from "./modificators/Identifiable";
 export abstract class Actor implements IActor {
   protected modificators: IModificator[] = [];
   protected effects = new Effects();
-  // 1 - right, 2 - down, 3 - left, 4 - up
-  protected direction: 1 | 2 | 3 | 4 = 1;
+  protected direction: Direction = 1;
   protected x: number;
   protected y: number;
   protected width: number;

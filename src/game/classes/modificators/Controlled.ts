@@ -25,7 +25,7 @@ export class Controlled implements IModificator {
       this.addEffect(new Move(right - left, down - up));
       if (left || right) {
         if (left > right) {
-          this.addEffect(new Turn(3));
+          this.addEffect(new Turn(5));
         } else {
           this.addEffect(new Turn(1));
         }
@@ -33,10 +33,26 @@ export class Controlled implements IModificator {
 
       if (down || up) {
         if (down > up) {
-          this.addEffect(new Turn(2));
+          this.addEffect(new Turn(3));
         } else {
-          this.addEffect(new Turn(4));
+          this.addEffect(new Turn(7));
         }
+      }
+
+      if (down && right) {
+        this.addEffect(new Turn(2));
+      }
+
+      if (down && left) {
+        this.addEffect(new Turn(4));
+      }
+
+      if (up && left) {
+        this.addEffect(new Turn(6));
+      }
+
+      if (up && right) {
+        this.addEffect(new Turn(8));
       }
     }
 

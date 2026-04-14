@@ -1,9 +1,10 @@
 import { IEffect } from "@game/interfaces/IEffect";
+import { Direction } from "@game/types/Direction";
 
 export class Turn implements IEffect {
-  direction: 1 | 2 | 3 | 4;
+  direction: Direction;
 
-  constructor(direction: 1 | 2 | 3 | 4) {
+  constructor(direction: Direction) {
     this.direction = direction;
   }
 

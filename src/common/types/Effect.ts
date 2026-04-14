@@ -1,3 +1,5 @@
+import { Direction } from "@game/types/Direction";
+
 export type Effect = {
   type: string;
   x?: number;
@@ -5,7 +7,7 @@ export type Effect = {
   impulsex?: (power: number) => number;
   impulsey?: (power: number) => number;
   direction?: string;
-  turning?: 1 | 2 | 3 | 4;
+  turning?: Direction;
   length?: number;
   damage?: number;
 };

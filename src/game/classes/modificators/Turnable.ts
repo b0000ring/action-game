@@ -1,10 +1,11 @@
 import { IModificator } from "@game/interfaces/IModificator";
+import { Direction } from "@game/types/Direction";
 import { Effect } from "@common/types/Effect";
 
 export class Turnable implements IModificator {
-  private turn: (direction: 1 | 2 | 3 | 4) => void;
+  private turn: (direction: Direction) => void;
 
-  constructor(turn: (direction: 1 | 2 | 3 | 4) => void) {
+  constructor(turn: (direction: Direction) => void) {
     this.turn = turn;
   }
 

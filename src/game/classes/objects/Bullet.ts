@@ -7,23 +7,23 @@ import { Exportable } from "../modificators/Exportable";
 import { Moveable } from "../modificators/Moveable";
 import { Physical } from "../modificators/Physical";
 import { Updatable } from "../modificators/Updatable";
+import { Direction } from "@game/types/Direction";
 
 export class Bullet extends Actor {
-  // TODO fix direction type everywhere
-  constructor(x: number, y: number, direction: 1 | 2 | 3 | 4) {
+  constructor(x: number, y: number, direction: Direction) {
     const type = "bullet";
 
     super(type, x, y, 5, 5);
     this.effects.add(
       new Impulse(
         () => {
-          if (direction === 1) return 5;
-          if (direction === 3) return -5;
+          if (direction === 1 || direction === 8 || direction === 2) return 5;
+          if (direction === 4 || direction === 5 || direction === 6) return -5;
           return 0;
         },
         () => {
-          if (direction === 2) return 5;
-          if (direction === 4) return -5;
+          if (direction === 2 || direction === 3 || direction === 4) return 5;
+          if (direction === 6 || direction === 7 || direction === 8) return -5;
           return 0;
         },
         9999,

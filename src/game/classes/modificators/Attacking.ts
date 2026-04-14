@@ -11,6 +11,7 @@ export class Attacking implements IModificator {
     const { x, y, width, height, direction } = this.getCoords();
     if (!this.cooldown) {
       this.cooldown = true;
+      console.log(direction);
       new Bullet(x, y + height / 3, direction);
       setTimeout(() => (this.cooldown = false), 100);
     }
