@@ -1,6 +1,6 @@
 import { IEffect } from '@game/interfaces/IEffect'
 import { IModificator } from '@game/interfaces/IModificator'
-import { checkCollisions } from '@game/modules/handlers/Collision'
+import { checkCollisions, CollisionDirection, CollisionOffset, subscribeColliding, unsubscribeColliding } from '@game/modules/handlers/Collision'
 import { Collision } from '../effects/Collision'
 import { Actor } from '@common/types/Actor'
 
@@ -10,8 +10,7 @@ export class Colliding implements IModificator {
   private move: (x: number, y: number) => void
   private getCoords: () => Actor
 
-  //TODO fix type
-  private update = (direction: string, data: {x: number, y: number}) => {
+  private update = (direction: CollisionDirection, data: CollisionOffset) => {
     if(data.x || data.y > 1 || data.y < -1) {
       this.offset.push(data)
     }
@@ -22,12 +21,15 @@ export class Colliding implements IModificator {
     this.addEffect = apply
     this.move = move
     this.getCoords = getCoords
+    subscribeColliding(this.getCoords, this.update)
   }
 
-  destroy() {}
+  destroy() {
+    unsubscribeColliding(this.update)
+  }
 
   apply() {
-    checkCollisions(this.getCoords(), this.update)
+    checkCollisions(this.update)
 
 
     const offset = this.offset.reduce((acc, item) => {

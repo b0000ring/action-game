@@ -11,7 +11,7 @@ import { Updatable } from "../modificators/Updatable";
 
 export class Player extends Actor {
   constructor(x: number, y: number) {
-    super("player", x, y, 20, 20);
+    super("player", x, y, 40, 40);
 
     this.modificators.push(
       new Colliding(() => this.data, this.effects.add, this.move),

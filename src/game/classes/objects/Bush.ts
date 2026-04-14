@@ -4,21 +4,15 @@ import { Exportable } from "../modificators/Exportable";
 
 const CELL_SIZE = 40;
 
-export class Wall extends Actor {
+export class Bush extends Actor {
   constructor(
     x: number,
     y: number,
     width: number = CELL_SIZE,
     height: number = CELL_SIZE,
   ) {
-    super("wall", x, y, width, height);
+    super("bush", x, y, width, height);
 
-    this.modificators.push(
-      new Collided(
-        () => this.data,
-        () => null,
-      ),
-    );
     this.modificators.push(new Exportable(() => this.data));
   }
 }

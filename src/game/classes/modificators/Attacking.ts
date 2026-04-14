@@ -12,7 +12,7 @@ export class Attacking implements IModificator {
     if (!this.cooldown) {
       this.cooldown = true;
       console.log(direction);
-      new Bullet(x, y + height / 3, direction);
+      new Bullet(x + width / 2, y + height / 2, direction);
       setTimeout(() => (this.cooldown = false), 100);
     }
   }
